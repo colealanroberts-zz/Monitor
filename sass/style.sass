@@ -1,0 +1,182 @@
+@import "bourbon"
+
+// Color
+$fiord-grey: #585E6D
+$brand-teal: #5BD8E4
+$brand-blue: #0099FF
+
+// Transition
+$transition-duration-default: 250ms
+
+// Gutters
+$px-gutter-tiny: 4px
+$px-gutter-small: 10px
+$px-gutter-base: 20px
+$px-gutter-large: 40px
+
+html,
+body
+    width: 100%
+    height: 100%
+    padding: 0
+    margin: 0
+    @include linear-gradient(180deg, #101100, #081319)
+
+
+body
+    @include user-select(none)
+    font-family: 'Montserrat', 'HelvticaNeue', 'Arial', sans-serif
+    -webkit-font-smoothing: antialiased
+
+a
+    color: inherit
+    text-decoration: none
+    border-bottom: 1px dotted rgba(white, 0.1)
+
+a,
+select,
+button
+    &:focus
+        outline: 0
+
+a,
+button,
+.btn
+    cursor: pointer
+
+.label
+    color: white
+    text-transform: uppercase
+    font-size: 11px
+    margin-bottom: 6px
+    display: block
+    font-weight: 700
+    letter-spacing: 1px
+
+.logo
+    @include position(absolute, 30px null null 40px)
+    color: white
+    text-transform: uppercase
+    letter-spacing: 3px
+    margin: 0
+    font:
+        size: 18px
+
+.settings
+    @include transition(transform, $ease-out-cubic, 200ms)
+    @include transition-delay(100ms)
+    @include position(fixed, 0 40px null null)
+    width: auto
+    height: auto
+    background: transparent
+
+    &__list
+        position: relative
+        top: 60px
+
+    &__btn
+        @include position(fixed, 30px 40px null null)
+        @include appearance(none)
+        border: 0
+        z-index: 9999
+        width: 24px
+        height: 24px
+        background: none
+
+        &-open
+            @include transition(opacity $ease-out-cubic 200ms, transform $ease-out-cubic 500ms)
+            opacity: 0.5
+            background:
+                size: 100%
+                repeat: no-repeat
+                image: url('../img/icon-settings.svg')
+                position: center center
+
+            &.active
+                @include transform(rotate(360deg))
+                opacity: 0
+
+            &:hover
+                opacity: 1
+
+            &:focus
+                outline: 0
+
+        &-close
+            &:before,
+            &:after
+                @include position(absolute, 12px null null 0)
+                content: ''
+                display: block
+                width: 24px
+                height: 1px
+                background: white
+
+            &:before
+                @include transform(rotate(45deg))
+
+            &:after
+                @include transform(rotate(-45deg))
+
+.stock
+    &__list
+        @include position(relative, 50px null null null)
+        list-style-type: none
+        overflow-x: auto
+        overflow-y: hidden
+        height: 116px
+        margin: 10px 0
+        border-bottom: 1px solid rgba(white, 0.05)
+
+    &__company
+        @include transition(opacity, $ease-out-cubic, $transition-duration-default)
+        position: relative
+        cursor: pointer
+        float: left
+        padding: $px-gutter-base $px-gutter-base $px-gutter-base 0
+        overflow: hidden
+        margin-right: $px-gutter-base
+        width: calc((100% / 8) - #{$px-gutter-base})
+        border-bottom: 1px solid rgba(white, 0.0)
+
+        &:hover
+            &:after
+                opacity: 1
+
+        &.active,
+        &:after
+            @include transition(opacity, $ease-out-cubic, $transition-duration-default)
+            @include linear-gradient($brand-blue, $brand-teal)
+            position: absolute
+            opacity: 0
+            content: ''
+            display: block
+            bottom: 0
+            height: 1px
+            width: 100%
+
+    &__row
+        color: white
+        display: block
+
+        &--name
+            width: 100%
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
+            font-size: 18px
+            margin-bottom: 4px
+
+        &--sym,
+        &--market-cap,
+        &--change-pct
+            color: $fiord-grey
+            font-size: 13px
+    
+.attribution
+    @include transform(translateX(-50%))
+    @include position(absolute, null null 30px 50%)
+    color: rgba(white, 0.2)
+    font:
+        size: 12px
+        family: 'Avenir', 'Helvetica', sans-serif

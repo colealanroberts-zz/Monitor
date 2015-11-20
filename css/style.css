@@ -1,0 +1,187 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #101100;
+  background-image: -webkit-linear-gradient(-450deg, #101100, #081319);
+  background-image: linear-gradient(180deg,#101100, #081319); }
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: "Montserrat", "HelvticaNeue", "Arial", sans-serif;
+  -webkit-font-smoothing: antialiased; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.1); }
+
+a:focus,
+select:focus,
+button:focus {
+  outline: 0; }
+
+a,
+button,
+.btn {
+  cursor: pointer; }
+
+.label {
+  color: white;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 700;
+  letter-spacing: 1px; }
+
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+  font-size: 18px; }
+
+.settings {
+  -webkit-transition: -webkit-transform, cubic-bezier(0.215, 0.61, 0.355, 1), 200ms;
+  -moz-transition: -moz-transform, cubic-bezier(0.215, 0.61, 0.355, 1), 200ms;
+  transition: transform, cubic-bezier(0.215, 0.61, 0.355, 1), 200ms;
+  -webkit-transition-delay: 100ms;
+  -moz-transition-delay: 100ms;
+  transition-delay: 100ms;
+  position: fixed;
+  top: 0;
+  right: 40px;
+  width: auto;
+  height: auto;
+  background: transparent; }
+  .settings__list {
+    position: relative;
+    top: 60px; }
+  .settings__btn {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 0;
+    z-index: 9999;
+    width: 24px;
+    height: 24px;
+    background: none; }
+    .settings__btn-open {
+      -webkit-transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) 200ms, -webkit-transform cubic-bezier(0.215, 0.61, 0.355, 1) 500ms;
+      -moz-transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) 200ms, -moz-transform cubic-bezier(0.215, 0.61, 0.355, 1) 500ms;
+      transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) 200ms, transform cubic-bezier(0.215, 0.61, 0.355, 1) 500ms;
+      opacity: 0.5;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-image: url("../img/icon-settings.svg");
+      background-position: center center; }
+      .settings__btn-open.active {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+        opacity: 0; }
+      .settings__btn-open:hover {
+        opacity: 1; }
+      .settings__btn-open:focus {
+        outline: 0; }
+    .settings__btn-close:before, .settings__btn-close:after {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      content: "";
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: white; }
+    .settings__btn-close:before {
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg); }
+    .settings__btn-close:after {
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
+
+.stock__list {
+  position: relative;
+  top: 50px;
+  list-style-type: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 116px;
+  margin: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.stock__company {
+  -webkit-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+  -moz-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+  transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+  position: relative;
+  cursor: pointer;
+  float: left;
+  padding: 20px 20px 20px 0;
+  overflow: hidden;
+  margin-right: 20px;
+  width: calc((100% / 8) - 20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0); }
+  .stock__company:hover:after {
+    opacity: 1; }
+  .stock__company.active, .stock__company:after {
+    -webkit-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+    -moz-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+    transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+    background-color: #0099FF;
+    background-image: -webkit-linear-gradient(#0099FF, #5BD8E4);
+    background-image: linear-gradient(#0099FF, #5BD8E4);
+    position: absolute;
+    opacity: 0;
+    content: "";
+    display: block;
+    bottom: 0;
+    height: 1px;
+    width: 100%; }
+.stock__row {
+  color: white;
+  display: block; }
+  .stock__row--name {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 18px;
+    margin-bottom: 4px; }
+  .stock__row--sym, .stock__row--market-cap, .stock__row--change-pct {
+    color: #585E6D;
+    font-size: 13px; }
+
+.attribution {
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+  font-family: "Avenir", "Helvetica", sans-serif; }
