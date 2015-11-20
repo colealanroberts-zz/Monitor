@@ -31,6 +31,29 @@ button,
 .btn {
   cursor: pointer; }
 
+.navbar {
+  padding: 0 40px;
+  position: relative;
+  overflow: hidden;
+  line-height: 60px;
+  height: 60px; }
+
+.loader {
+  position: relative;
+  top: 18px;
+  float: right;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px; }
+  .loader canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    max-height: 100%; }
+
 .label {
   color: white;
   text-transform: uppercase;
@@ -41,9 +64,8 @@ button,
   letter-spacing: 1px; }
 
 .logo {
-  position: absolute;
-  top: 30px;
-  left: 40px;
+  position: relative;
+  float: left;
   color: white;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -57,9 +79,6 @@ button,
   -webkit-transition-delay: 100ms;
   -moz-transition-delay: 100ms;
   transition-delay: 100ms;
-  position: fixed;
-  top: 0;
-  right: 40px;
   width: auto;
   height: auto;
   background: transparent; }
@@ -67,14 +86,14 @@ button,
     position: relative;
     top: 60px; }
   .settings__btn {
-    position: fixed;
-    top: 30px;
-    right: 40px;
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
     -o-appearance: none;
     appearance: none;
+    position: relative;
+    top: 18px;
+    float: right;
     border: 0;
     z-index: 9999;
     width: 24px;
@@ -124,12 +143,11 @@ button,
 
 .stock__list {
   position: relative;
-  top: 50px;
   list-style-type: none;
   overflow-x: auto;
   overflow-y: hidden;
   height: 116px;
-  margin: 10px 0;
+  margin: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 .stock__company {
   -webkit-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;

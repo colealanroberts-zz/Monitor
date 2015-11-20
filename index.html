@@ -4,22 +4,29 @@
 	<meta charset="UTF-8">
 	<title>Monitor</title>
 	<link rel="stylesheet" href="css/style.css">
+
+    <!-- G Font -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Chartist -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     </head>
 </head>
 <body>
-	<h1 href="" class="logo">Monitor</h1>
-	<div class="settings">
-		<button class="settings__btn settings__btn-open"></button>
-	</div>
-	<div class="stock">
-    	<ul class="stock__list">
+    <nav class="navbar">
 
-    	</ul>
-	</div>
+	   <h1 href="" class="logo">Monitor</h1>
+    	<button class="settings__btn settings__btn-open"></button>
+        <div class="loader"></div>
+    </nav>
+	<ul class="stock__list">
+
+	</ul>
 	<span class="attribution">Data provided by <a href="http://dev.markitondemand.com/">thomsonreuters.com</a></span>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="application.js"></script>
+    <script type="text/javascript" src="js/circle-progress.js"></script>
+    <script src="application.js"></script>
 </body>
 </html>
