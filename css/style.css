@@ -54,6 +54,22 @@ button,
     max-width: 100%;
     max-height: 100%; }
 
+.chart-history {
+  position: absolute;
+  top: 176px;
+  bottom: 60px;
+  width: 100%; }
+  .chart-history .ct-series-a .ct-line {
+    stroke: #0099FF;
+    stroke-width: 2px; }
+  .chart-history .ct-series-a .ct-point {
+    stroke: white;
+    stroke-width: 0px; }
+  .chart-history .ct-label {
+    color: rgba(255, 255, 255, 0.4); }
+  .chart-history .ct-grid {
+    stroke: rgba(255, 255, 255, 0.08); }
+
 .label {
   color: white;
   text-transform: uppercase;
@@ -198,7 +214,7 @@ button,
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
   left: 50%;
   color: rgba(255, 255, 255, 0.2);
   font-size: 12px;

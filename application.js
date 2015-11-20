@@ -1,19 +1,39 @@
 $(function() {
     // Global vars
-    var l;
+    var chartHeight;
 
     // Time Consts
-    var ONE_SECOND = 1000,
-        ONE_MINUTE = 60000;
+    var ONE_SECOND   = 1000,
+        ONE_MINUTE   = 60000,
+        ONE_MONTH    = 30,
+        THREE_MONTHS = ONE_MONTH * 3,
+        ONE_YEAR     = 365;
 
-    var refreshCycle = ONE_MINUTE * 2;
+    var refreshCycle = ONE_MINUTE / 2;
 
     var quoteUrl          = 'http://dev.markitondemand.com/Api/v2/Quote/jsonp?symbol=',
-        historyUrlFragOne = 'http://dev.markitondemand.com/Api/v2/InteractiveChart/jsonp?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A365%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22',
+        historyUrlFragOne = 'http://dev.markitondemand.com/Api/v2/InteractiveChart/jsonp?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A90%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22',
         historyUrlFragTwo = '%22%2C%22Type%22%3A%22price%22%2C%22Params%22%3A%5B%22c%22%5D%7D%5D%7D';
 
     var stockArray = ['AAPL', 'NFLX', 'SQ', 'GE', 'GPRO', 'TWTR'],
         stockArrayLength = stockArrayLen();
+
+    // This is to scale the grid
+    function scaleGrid() {
+        var nav, stockList, navH, sLH, uiElements, windowH, total;
+        nav        = $('.navbar'),
+        stockList = $('.stock__list');
+
+        navH    = nav.height(),
+        sLH     = stockList.height();
+        uiElements = navH + sLH;
+
+        windowH = $(window).height();
+        total = windowH - (uiElements + 46); // Take into account .attribution and the distance it's moved from the bottom
+        return total;
+    }
+
+    chartHeight = scaleGrid();
 
     // Determine screen pixel density
     function isRetinaDisplay() {
@@ -72,8 +92,30 @@ $(function() {
 
 
     function buildChart(d) {
-        var data = d;
+        var data, chartHeight;
+
+        data = d;
+        chartHeight = scaleGrid();
+
         console.log(data);
+        var dates = data.Dates,
+            /*positions = data.Positions,*/
+            lastPrice = data.Elements[0].DataSeries.close.values;
+        var data = {
+            labels: dates,
+            series: [
+                lastPrice
+            ]
+        };
+
+        var options = {
+            height: chartHeight,
+            stretch: true,
+            showPoint: false,
+            fullWidth: true,
+        };
+
+        new Chartist.Line('.chart-history', data, options);
     }
 
     function buildList(d) {
@@ -110,15 +152,13 @@ $(function() {
 
     function getHistoryChart() {
         var sym = $(this).data('symbol');
-        console.log(sym);
-
-        http://dev.markitondemand.com/Api/v2/InteractiveChart/jsonp?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A365%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22GPRO%22%2C%22Type%22%3A%22price%22%2C%22Params%22%3A%5B%22c%22%5D%7D%5D%7D'
-
         $.ajax({
             url: historyUrlFragOne + sym + historyUrlFragTwo,
+            /*url: 'history.json',*/
             type: 'GET',
             contentType: 'application/json',
             dataType: 'jsonp'
+            /*dataType: 'json'*/
         })
         .success(function(data) {
             buildChart(data);
@@ -132,7 +172,6 @@ $(function() {
     // Run once
     updatePrices();
     animateUpdateProgress();
-
     setInterval(function() {
         updatePrices();
         animateUpdateProgress();
