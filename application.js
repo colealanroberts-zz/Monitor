@@ -15,7 +15,8 @@ $(function() {
         historyUrlFragOne = 'http://dev.markitondemand.com/Api/v2/InteractiveChart/jsonp?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A90%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22',
         historyUrlFragTwo = '%22%2C%22Type%22%3A%22price%22%2C%22Params%22%3A%5B%22c%22%5D%7D%5D%7D';
 
-    var stockArray = ['AAPL', 'NFLX', 'SQ', 'GE', 'GPRO', 'TWTR'],
+    var stockArray = ['TWTR', 'GOOG', 'AAPL', 'GPRO', 'GE', 'SQ', 'PAA', 'T', 'A', 'MCK', 'IP', 'RTN', 'X', 'TSO', 'ESRX', 'FCX', 'AET','JCP', 'DD', 'VZ'];
+        stockArray.sort();
         stockArrayLength = stockArrayLen();
 
     // This is to scale the grid
@@ -39,8 +40,6 @@ $(function() {
     function isRetinaDisplay() {
         if (window.devicePixelRatio > 1 || window.devicePixelRatio === 2) {
             return true;
-        } else {
-            console.log('Non Retina');
         }
     }
 
@@ -137,17 +136,18 @@ $(function() {
     // Make Ajax request
     function getStockPrices(stock) {
         $.ajax({
-                url: quoteUrl + stock,
-                type: 'GET',
-                contentType: 'application/json',
-                dataType: 'jsonp'
-            })
-            .success(function(data) {
-                buildList(data);
-            })
-            .done(function() {
-                attachClickListeners();
-            });
+            url: quoteUrl + stock,
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'jsonp'
+        })
+        .done(function(data) {
+            buildList(data);
+            attachClickListeners();
+        })
+        .fail(function(data, textStatus, errorThrown) {
+            console.log(data + textStatus + errorThrown);
+        });
     }
 
     function getHistoryChart() {
@@ -160,8 +160,12 @@ $(function() {
             dataType: 'jsonp'
             /*dataType: 'json'*/
         })
-        .success(function(data) {
+        .done(function(data) {
             buildChart(data);
+            getHistoryChart();
+        })
+        .fail(function(data, textStatus, errorThrown) {
+            console.log(data + textStatus + errorThrown);
         });
     }
 
