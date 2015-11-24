@@ -174,7 +174,6 @@ $(function() {
         })
         .done(function(data) {
             buildChart(data);
-            getHistoryChart();
         })
         .fail(function(data, textStatus, errorThrown) {
             console.log(data + textStatus + errorThrown);
@@ -184,6 +183,7 @@ $(function() {
     function attachClickListeners() {
         $('.stock__company').unbind().click(function(event) {
             event.preventDefault();
+            getHistoryChart();
         });
     }
 
