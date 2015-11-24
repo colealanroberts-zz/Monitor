@@ -172,7 +172,9 @@ button,
         border-bottom: 1px solid rgba(white, 0.05)
 
     &__company
-        @include transition(opacity, $ease-out-cubic, $transition-duration-default)
+        @include transition(opacity $ease-out-cubic $transition-duration-default, transform $ease-out-cubic $transition-duration-default)
+        @include transform(translateY(-40px))
+        opacity: 0
         position: relative
         cursor: pointer
         float: left
@@ -182,11 +184,14 @@ button,
         width: calc((100% / 8) - #{$px-gutter-base})
         border-bottom: 1px solid rgba(white, 0.0)
 
+        &.active
+            @include transform(translateY(0px))
+            opacity: 1
+
         &:hover
             &:after
                 opacity: 1
 
-        &.active,
         &:after
             @include transition(opacity, $ease-out-cubic, $transition-duration-default)
             @include linear-gradient($brand-blue, $brand-teal)

@@ -166,9 +166,15 @@ button,
   margin: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 .stock__company {
-  -webkit-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
-  -moz-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
-  transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
+  -webkit-transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) 250ms, -webkit-transform cubic-bezier(0.215, 0.61, 0.355, 1) 250ms;
+  -moz-transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) 250ms, -moz-transform cubic-bezier(0.215, 0.61, 0.355, 1) 250ms;
+  transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) 250ms, transform cubic-bezier(0.215, 0.61, 0.355, 1) 250ms;
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  opacity: 0;
   position: relative;
   cursor: pointer;
   float: left;
@@ -177,9 +183,16 @@ button,
   margin-right: 20px;
   width: calc((100% / 8) - 20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0); }
+  .stock__company.active {
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -o-transform: translateY(0px);
+    transform: translateY(0px);
+    opacity: 1; }
   .stock__company:hover:after {
     opacity: 1; }
-  .stock__company.active, .stock__company:after {
+  .stock__company:after {
     -webkit-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
     -moz-transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;
     transition: opacity, cubic-bezier(0.215, 0.61, 0.355, 1), 250ms;

@@ -133,6 +133,17 @@ $(function() {
         }
     }
 
+    function animateUI() {
+        var stockList = $('.stock__company');
+
+        stockList.each(function(i) {
+            var stock = $(this);
+            setTimeout(function() {
+                stock.addClass('active');
+            }, i * 200);
+        });
+    }
+
     // Make Ajax request
     function getStockPrices(stock) {
         $.ajax({
@@ -142,6 +153,7 @@ $(function() {
             dataType: 'jsonp'
         })
         .done(function(data) {
+            animateUI();
             buildList(data);
             attachClickListeners();
         })
@@ -170,10 +182,13 @@ $(function() {
     }
 
     function attachClickListeners() {
-        $('.stock__company').unbind().click(getHistoryChart);
+        $('.stock__company').unbind().click(function(event) {
+            event.preventDefault();
+        });
     }
 
     // Run once
+    animateUI();
     updatePrices();
     animateUpdateProgress();
     setInterval(function() {
