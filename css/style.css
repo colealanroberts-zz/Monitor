@@ -12,10 +12,6 @@ body {
     overflow: hidden; }
 
 body {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   font-family: "Montserrat", "HelvticaNeue", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased; }
 
@@ -118,7 +114,8 @@ button,
   -ms-transform: scale(1);
   -o-transform: scale(1);
   transform: scale(1);
-  width: 100%;
+  padding: 0 40px;
+  width: calc(100% -  (40px * 2));
   opacity: 1; }
   .chart-history .ct-series-a .ct-line {
     stroke: #0099FF;
@@ -152,15 +149,19 @@ button,
 
 .company-info {
   height: 50px;
-  width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+  padding-left: 40px;
+  line-height: 50px;
+  width: 100%; }
+  .company-info__symbol, .company-info__price {
+    float: left;
+    display: block;
+    margin-right: 20px; }
   .company-info__symbol {
     color: white; }
   .company-info__prices {
     list-style-type: none; }
   .company-info__price {
-    float: left;
-    color: white, 0.5;
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.75em; }
 
 .settings {

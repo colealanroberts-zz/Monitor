@@ -46,6 +46,8 @@ $(function() {
         sLH     = $stockList.height(),
         aH      = $attribution.height(),
         cIH     = $companyInfo.height();
+
+        console.log(cIH);
     
         uiElements = navH + sLH + aH + cIH;
 
@@ -124,8 +126,8 @@ $(function() {
             $companyInfoPriceMax  = $('.company-info__price--max');
 
         $companyInfoSymbol.html(data.Elements[0].Symbol);
-        $companyInfoPriceMin.html('$' + data.Elements[0].DataSeries.close.min);
-        $companyInfoPriceMax.html('$' + data.Elements[0].DataSeries.close.max);
+        $companyInfoPriceMin.html('Min: $' + data.Elements[0].DataSeries.close.min);
+        $companyInfoPriceMax.html('Max: $' + data.Elements[0].DataSeries.close.max);
     
         // Send the object and data to Chartize.js
         var dates = data.Dates,
@@ -139,7 +141,7 @@ $(function() {
         };
 
         var options = {
-            height: chartHeight,
+            height: chartHeight + 'px',
             stretch: true,
             showPoint: false,
             fullWidth: true,

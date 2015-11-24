@@ -41,7 +41,6 @@ body
 
 
 body
-    @include user-select(none)
     font-family: 'Montserrat', 'HelvticaNeue', 'Arial', sans-serif
     -webkit-font-smoothing: antialiased
 
@@ -126,7 +125,8 @@ button,
     @include transition(transform $ease-out-cubic 500ms, opacity $ease-out-cubic )
     @include position(absolute, 226px null 60px null)
     @include transform(scale(1))
-    width: 100%
+    padding: 0 $px-gutter-large
+    width: calc(100% -  (#{$px-gutter-large} * 2))
     opacity: 1
 
     .ct-series-a .ct-line
@@ -165,8 +165,15 @@ button,
 
 .company-info
     height: 50px
+    padding-left: $px-gutter-large
+    line-height: 50px
     width: 100%
-    border-bottom: 1px solid rgba(white, 0.05)
+
+    &__symbol,
+    &__price
+        float: left
+        display: block
+        margin-right: $px-gutter-base
 
     &__symbol
         color: white
@@ -175,8 +182,7 @@ button,
         list-style-type: none
 
     &__price
-        float: left
-        color: (white, 0.5)
+        color: rgba(white, 0.5)
         font:
             size: em(12px)
 
