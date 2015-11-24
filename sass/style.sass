@@ -14,6 +14,14 @@ $px-gutter-small: 10px
 $px-gutter-base: 20px
 $px-gutter-large: 40px
 
+// Z Indexs
+$z-index-alpha: 10000
+$z-index-modal: 9000
+$z-index-modal-overlay: 8000
+$z-index-attribution: 1000
+$z-index-baseline: 1
+$z-index-basement: -1
+
 // Dim
 $dim-icon-nav: 24px
 
@@ -26,13 +34,21 @@ body
     height: 100%
     padding: 0
     margin: 0
-    @include linear-gradient(180deg, #101100, #081319)
+    @include linear-gradient(180deg,#101100, rgb(24, 24, 31))
+
+    &.modal-active
+        overflow: hidden
 
 
 body
     @include user-select(none)
     font-family: 'Montserrat', 'HelvticaNeue', 'Arial', sans-serif
     -webkit-font-smoothing: antialiased
+
+ul,
+ol
+    margin: 0
+    padding: 0
 
 a
     color: inherit
@@ -69,9 +85,49 @@ button,
         max-width: 100%
         max-height: 100%
 
+.modal
+    @include transition(opacity $ease-out-cubic 300ms, transform $ease-out-cubic 200ms)
+    @include transform(translate(-50%, -30%))
+    @include position(absolute, 50% null null 50%)
+    z-index: $z-index-modal
+    width: 300px
+    padding: 20px
+    overflow: hidden
+    background: white
+    border-radius: 10px
+    opacity: 0
+
+    &.show
+        @include transform(translate(-50%, -50%))
+        opacity: 1
+
+    &__overlay
+        @include position(fixed, 0 0 0 0)
+        background: rgba(0, 0, 0, 1)
+        z-index: $z-index-modal-overlay
+
+    &__header,
+    &__body
+        font:
+            family: 'Avenir'
+
+    &__header
+        text-align: center
+        margin-bottom: 10px
+        font:
+            size: 24px
+            weight: 600
+
+    &__body
+        font:
+            weight: 400
+
 .chart-history
-    @include position(absolute, 176px null 60px null)
+    @include transition(transform $ease-out-cubic 500ms, opacity $ease-out-cubic )
+    @include position(absolute, 226px null 60px null)
+    @include transform(scale(1))
     width: 100%
+    opacity: 1
 
     .ct-series-a .ct-line
         stroke: $brand-blue
@@ -85,7 +141,8 @@ button,
         color: rgba(white, 0.4)
 
     .ct-grid
-        stroke: rgba(white, 0.08)
+        stroke: rgba(white, 0.06)
+
 .label
     color: white
     text-transform: uppercase
@@ -97,6 +154,7 @@ button,
 
 .logo
     position: relative
+    z-index: $z-index-alpha
     float: left
     color: white
     text-transform: uppercase
@@ -104,6 +162,23 @@ button,
     margin: 0
     font:
         size: 18px
+
+.company-info
+    height: 50px
+    width: 100%
+    border-bottom: 1px solid rgba(white, 0.05)
+
+    &__symbol
+        color: white
+
+    &__prices
+        list-style-type: none
+
+    &__price
+        float: left
+        color: (white, 0.5)
+        font:
+            size: em(12px)
 
 .settings
     @include transition(transform, $ease-out-cubic, 200ms)
@@ -121,7 +196,7 @@ button,
         @include position(relative, (($height-nav / 2) - $dim-icon-nav / 2) null null null)
         float: right
         border: 0
-        z-index: 9999
+        z-index: $z-index-baseline
         width: $dim-icon-nav
         height: $dim-icon-nav
         background: none
@@ -168,6 +243,7 @@ button,
         overflow-x: auto
         overflow-y: hidden
         height: 116px
+        padding-left: $px-gutter-large
         margin: 0
         border-bottom: 1px solid rgba(white, 0.05)
 

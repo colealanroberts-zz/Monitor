@@ -15,6 +15,13 @@
     </head>
 </head>
 <body>
+	<div class="modal__overlay"></div>
+	<div class="modal">
+		<div class="modal__header"></div>
+		<div class="modal__body">
+			<p></p>
+		</div>
+	</div>
     <nav class="navbar">
 
 	   <h1 href="" class="logo">Vara</h1>
@@ -24,6 +31,13 @@
 	<ul class="stock__list">
 
 	</ul>
+	<div class="company-info">
+		<span class="company-info__symbol"></span>
+		<ul class="company-info__prices">
+			<li class="company-info__price company-info__price--max"></li>
+			<li class="company-info__price company-info__price--min"></li>
+		</ul>
+	</div>
     <div class="chart-history"></div>
 	<span class="attribution">Data provided by <a href="http://dev.markitondemand.com/">thomsonreuters.com</a></span>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

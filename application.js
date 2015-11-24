@@ -2,6 +2,21 @@ $(function() {
     // Global vars
     var chartHeight;
 
+    // Elements
+    var $body, $chart, $modal, $modalOverlay, $modalHeaderText, $modalBodyText;
+
+    // Body 
+    $body = $('body');
+
+    // Chart
+    $chart = $('.chart-history');
+
+    // Modal UI elements
+    $modal           = $('.modal');
+    $modalOverlay    = $('.modal__overlay');
+    $modalHeaderText = $('.modal__header');
+    $modalBodyText   = $('.modal__body');
+
     // Time Consts
     var ONE_SECOND   = 1000,
         ONE_MINUTE   = 60000,
@@ -15,26 +30,31 @@ $(function() {
         historyUrlFragOne = 'http://dev.markitondemand.com/Api/v2/InteractiveChart/jsonp?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A90%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22',
         historyUrlFragTwo = '%22%2C%22Type%22%3A%22price%22%2C%22Params%22%3A%5B%22c%22%5D%7D%5D%7D';
 
-    var stockArray = ['TWTR', 'GOOG', 'AAPL', 'GPRO', 'GE', 'SQ', 'PAA', 'T', 'A', 'MCK', 'IP', 'RTN', 'X', 'TSO', 'ESRX', 'FCX', 'AET','JCP', 'DD', 'VZ'];
+    var stockArray = ['TWTR', 'GOOG', 'AAPL', 'GPRO','SQ', 'SBUX'];
         stockArray.sort();
         stockArrayLength = stockArrayLen();
 
     // This is to scale the grid
-    function scaleGrid() {
-        var nav, stockList, navH, sLH, uiElements, windowH, total;
-        nav        = $('.navbar'),
-        stockList = $('.stock__list');
+    function scaleChart() {
+        var $nav, $stockList, $attribution, $companyInfo, navH, sLH, uiElements, windowH, total;
+        $nav         = $('.navbar'),
+        $stockList   = $('.stock__list');
+        $attribution = $('.attribution');
+        $companyInfo = $('.company-info');
 
-        navH    = nav.height(),
-        sLH     = stockList.height();
-        uiElements = navH + sLH;
+        navH    = $nav.height(),
+        sLH     = $stockList.height(),
+        aH      = $attribution.height(),
+        cIH     = $companyInfo.height();
+    
+        uiElements = navH + sLH + aH + cIH;
 
         windowH = $(window).height();
-        total = windowH - (uiElements + 46); // Take into account .attribution and the distance it's moved from the bottom
+        total = windowH - uiElements; // Take into account .attribution and the distance it's moved from the bottom
         return total;
     }
 
-    chartHeight = scaleGrid();
+    chartHeight = scaleChart();
 
     // Determine screen pixel density
     function isRetinaDisplay() {
@@ -91,12 +111,23 @@ $(function() {
 
 
     function buildChart(d) {
-        var data, chartHeight;
-
+        var data, chartHeight;        
         data = d;
-        chartHeight = scaleGrid();
-
         console.log(data);
+
+        // Account for UI Elements
+        chartHeight = scaleChart();
+
+        // Els
+        var $companyInfoSymbol      = $('.company-info__symbol'),
+            $companyInfoPriceMin  = $('.company-info__price--min'),
+            $companyInfoPriceMax  = $('.company-info__price--max');
+
+        $companyInfoSymbol.html(data.Elements[0].Symbol);
+        $companyInfoPriceMin.html('$' + data.Elements[0].DataSeries.close.min);
+        $companyInfoPriceMax.html('$' + data.Elements[0].DataSeries.close.max);
+    
+        // Send the object and data to Chartize.js
         var dates = data.Dates,
             /*positions = data.Positions,*/
             lastPrice = data.Elements[0].DataSeries.close.values;
@@ -114,6 +145,7 @@ $(function() {
             fullWidth: true,
         };
 
+        // Draw the line
         new Chartist.Line('.chart-history', data, options);
     }
 
@@ -140,8 +172,23 @@ $(function() {
             var stock = $(this);
             setTimeout(function() {
                 stock.addClass('active');
-            }, i * 200);
+            }, i * 150);
         });
+    }
+
+    function showModal(headerText, bodyText) {
+        // Accept params
+        $modalHeaderText.html(headerText);
+        $modalBodyText.html(bodyText)
+
+        $body.addClass('modal-active');
+        $modal.addClass('show');
+        $modalOverlay.show();
+    }
+
+    function closeModal() {
+        $modal.hide();
+        $modalOverlay.hide();
     }
 
     // Make Ajax request
@@ -153,12 +200,14 @@ $(function() {
             dataType: 'jsonp'
         })
         .done(function(data) {
+            closeModal();
             animateUI();
             buildList(data);
             attachClickListeners();
         })
         .fail(function(data, textStatus, errorThrown) {
             console.log(data + textStatus + errorThrown);
+            // showModal('Oops!', 'Well this is embarrasing, but we were unable to load your data! Try refreshing the page.');
         });
     }
 
@@ -177,14 +226,12 @@ $(function() {
         })
         .fail(function(data, textStatus, errorThrown) {
             console.log(data + textStatus + errorThrown);
+            // showModal('Oops!', 'Well this is embarrasing, but we were unable to load your data! Try refreshing the page.');
         });
     }
 
     function attachClickListeners() {
-        $('.stock__company').unbind().click(function(event) {
-            event.preventDefault();
-            getHistoryChart();
-        });
+        $('.stock__company').unbind().click(getHistoryChart);
     }
 
     // Run once
